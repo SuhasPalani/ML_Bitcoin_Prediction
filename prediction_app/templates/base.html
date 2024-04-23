@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bitcoin Prediction App{% endblock %}</title>
+    <!-- Include CSS stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Bitcoin Prediction App</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/live_movement">Live Movement</a></li>
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- This block will be overridden by content from child templates -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Bitcoin Prediction App</p>
+    </footer>
+</body>
+</html>

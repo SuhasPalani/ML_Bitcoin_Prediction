@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Movement of Bitcoin Dataset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Movement of Bitcoin Dataset</h1>
+        <div id="live-chart"></div>
+    </div>
+    <script>
+        var interval = setInterval(function() {
+            fetch('/update_data')
+                .then(response => response.json())
+                .then(data => {
+                    var dates = data.map(row => row['Date']);
+                    var prices = data.map(row => row['Bitcoin Price']);
+                    var trace = {
+                        x: dates,
+                        y: prices,
+                        type: 'scatter',
+                        mode: 'lines',
+                        marker: {
+                            color: 'blue'
+                        },
+                        name: 'Bitcoin Price'
+                    };
+                    var layout = {
+                        title: 'Live Bitcoin Price Movement',
+                        xaxis: {
+                            title: 'Date'
+                        },
+                        yaxis: {
+                            title: 'Price (USD)'
+                        }
+                    };
+                    Plotly.newPlot('live-chart', [trace], layout);
+                });
+        }, 1000);  // Update every 1 second
+    </script>
+</body>
+</html>
